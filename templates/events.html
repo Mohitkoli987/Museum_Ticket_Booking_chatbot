@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exhibitions - Museum</title>
+    <style>
+        /* Basic CSS for layout */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Updated font */
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navigation {
+            background-color: #333;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .navigation a {
+            color: #f2f2f2;
+            text-align: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            font-size: 16px;
+            line-height: 1.2;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .navigation a:hover {
+            background-color: #575757;
+            color: white;
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #575757;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #575757;
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            animation: fadeInDown 1s ease-out;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .exhibition-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px 0;
+            animation: fadeIn 1s ease-out;
+        }
+        .exhibition-gallery {
+            display: flex;
+            transition: transform 1s ease-in-out;
+        }
+        .exhibition-item {
+            min-width: 100%;
+            box-sizing: border-box;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin: 0 10px;
+        }
+        .exhibition-item img {
+            width: 100%;
+            height: auto;
+        }
+        .exhibition-item h3 {
+            font-size: 1.8rem;
+            margin: 15px;
+            opacity: 0;
+            animation: slideUp 1s ease-out forwards;
+            animation-delay: 0.5s;
+            color: #333; /* Updated color */
+        }
+        .exhibition-item p {
+            font-size: 1.1rem;
+            margin: 0 15px 15px;
+            opacity: 0;
+            animation: slideUp 1s ease-out forwards;
+            animation-delay: 0.7s;
+            color: #555; /* Updated color */
+        }
+        .book-now-btn {
+            display: block;
+            background-color: #008CBA;
+            color: white;
+            padding: 12px 25px;
+            text-align: center;
+            margin: 15px auto;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+        .book-now-btn:hover {
+            background-color: #005f73;
+        }
+        .connect-section {
+            background-color: #222;
+            color: #fff;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            animation: fadeIn 1s ease-out;
+        }
+        .connect-section .info {
+            flex: 1;
+        }
+        .connect-section .info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .connect-section .info p {
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+        .connect-section .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .connect-section .buttons a {
+            background-color: #444;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .connect-section .buttons a:hover {
+            background-color: #666;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        .carousel-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .prev {
+            left: 10px;
+        }
+        .next {
+            right: 10px;
+        }
+
+        /* Footer styles updated */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            margin-top: auto;
+        }
+
+        /* Keyframes for animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navigation">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('events') }}">Exhibitions</a>
+        <a href="{{ url_for('ticketchat') }}">Book Ticket</a>
+        <a href="#">About Us</a>
+        <div class="dropdown">
+            <a href="{{ url_for('login') }}" class="dropbtn">Member Login</a>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Current and Upcoming Exhibitions</h1>
+    </div>
+
+    <!-- Exhibitions Gallery Section -->
+    <div class="exhibition-carousel">
+        <button class="carousel-btn prev" onclick="changeSlide(-1)">&#10094;</button>
+        <div class="exhibition-gallery">
+            {% for event in events %}
+                <div class="exhibition-item">
+                    <img src="{{ event.photo_url }}" alt="{{ event.title }}">
+                    <h3>{{ event.title }}</h3>
+                    <p>{{ event.description }}</p>
+                    <p><strong>Date:</strong> {{ event.event_date }}</p>
+                    <p><strong>Time:</strong> {{ event.start_time }} - {{ event.end_time }}</p>
+                    <a href="#" class="book-now-btn">Book Now</a>
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-btn next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+
+    <!-- Connect Section -->
+    <div class="connect-section" id="contact-us">
+        <div class="info">
+            <h2>Connect with Us</h2>
+            <p>Email: info@museum.com</p>
+            <p>Phone: +123 456 7890</p>
+            <p>Location: 123 Museum Street, Art City</p>
+        </div>
+        <div class="buttons">
+            <a href="#">Follow on Instagram</a>
+            <a href="#">Like on Facebook</a>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <p>&copy; 2024 Museum. All rights reserved. | <a href="#contact-us" style="color: #fff; text-decoration: underline;">Access Contact Us</a></p>
+    </div>
+
+    <script>
+        // JavaScript for carousel functionality
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.exhibition-item');
+        const totalSlides = slides.length;
+
+        function changeSlide(step) {
+            currentIndex = (currentIndex + step + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const offset = -currentIndex * 100;
+            document.querySelector('.exhibition-gallery').style.transform = `translateX(${offset}%)`;
+        }
+
+        // Initialize carousel
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCarousel();
+        });
+    </script>
+
+</body>
+
+</html>

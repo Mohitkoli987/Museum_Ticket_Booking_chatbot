@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Ticket</title>
+</head>
+<body>
+    <h1>Check Ticket</h1>
+    <form action="{{ url_for('admin_check_ticket') }}" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" required><br>
+        <button type="submit">Check Ticket</button>
+    </form>
+
+    {% if ticket %}
+        <h2>Ticket Details</h2>
+        <p>Ticket ID: {{ ticket.id }}</p>
+        <p>Event ID: {{ ticket.event_id }}</p>
+        <p>Visit Date: {{ ticket.visit_date }}</p>
+        <p>Total Amount: {{ ticket.total_amount }}</p>
+    {% elif error %}
+        <p>{{ error }}</p>
+    {% endif %}
+</body>
+</html>

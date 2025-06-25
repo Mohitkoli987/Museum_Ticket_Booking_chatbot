@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Your Ticket</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #575757;
+        }
+
+        .ticket-details {
+            margin-top: 20px;
+            text-align: left;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .ticket-details p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Check Your Ticket</h1>
+        <form method="POST" action="{{ url_for('check_ticket') }}">
+            <input type="text" name="name" placeholder="Enter your name" required>
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <input type="tel" name="phone" placeholder="Enter your phone number" required>
+            <button type="submit">Check Ticket</button>
+        </form>
+
+        <!-- Display Ticket Details if Found -->
+        {% if ticket %}
+        <div class="ticket-details">
+            <h2>Ticket Details</h2>
+            <p><strong>Ticket ID:</strong> {{ ticket.id }}</p>
+            <p><strong>Event:</strong> {{ ticket.title }}</p>
+            <p><strong>Visit Date:</strong> {{ ticket.visit_date }}</p>
+            <p><strong>Start Time:</strong> {{ ticket.start_time }}</p>
+            <p><strong>End Time:</strong> {{ ticket.end_time }}</p>
+            <p><strong>Number of Adults:</strong> {{ ticket.adults }}</p>
+            <p><strong>Number of Students:</strong> {{ ticket.students }}</p>
+            <p><strong>Number of Children:</strong> {{ ticket.children }}</p>
+            <p><strong>Total Amount Paid:</strong> Rs{{ ticket.total_amount }}</p>
+        </div>
+        {% elif error %}
+        <p class="error-message">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+
+
+
+</html>

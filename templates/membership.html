@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership - Met Museum</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #fff;
+        }
+
+        /* Navigation Bar Styles */
+        .navigation {
+            background-color: #333;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navigation a {
+            color: #f2f2f2;
+            text-align: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            font-size: 16px;
+            line-height: 1.2;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navigation a:hover {
+            background-color: #575757;
+            color: white;
+        }
+
+        /* Membership Section Styles */
+        .membership-section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .membership-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .membership-options {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .membership-card {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            width: 30%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .membership-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .membership-card p {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .membership-card img {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+
+        .membership-card ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .membership-card ul li {
+            margin-bottom: 5px;
+        }
+
+        .membership-card button {
+            background-color: #c00;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .membership-card button:hover {
+            background-color: rgb(13, 10, 10);
+            transform: scale(1.05);
+        }
+
+        .membership-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer Section Styles */
+        .footer {
+            background-color: #333;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer a {
+            color: #f2f2f2;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navigation">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('events') }}">Exhibitions</a>
+        <a href="{{ url_for('ticketchat') }}">Book Ticket</a>
+        <a href="#contact-section">Contact Us</a>
+        <div class="dropdown">
+            <a href="{{ url_for('login') }}" class="dropbtn">Login</a>
+            <div class="dropdown-content">
+                <!-- <a href="{{ url_for('login') }}">Member Login</a> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Membership Section -->
+    <section class="membership-section">
+        <h2>Membership Options</h2>
+        <p>Choose the membership that suits you best and enjoy exclusive benefits all year round.</p>
+
+        <div class="membership-options">
+            <div class="membership-card">
+                <h3>Individual</h3>
+                <p>1100 per year</p>
+                <ul>
+                    <li>Free Admission</li>
+                    <li>Members-only events</li>
+                    <li>Discount at Museum Stores</li>
+                    <li>Free Subscription to Museum Magazine</li>
+                </ul>
+                <button onclick="window.location.href='{{ url_for('register') }}'">Join Now</button>
+            </div>
+
+            <div class="membership-card">
+                <h3>Dual</h3>
+                <p>1800 per year</p>
+                <ul>
+                    <li>All Individual benefits for two</li>
+                    <li>Plus additional guest passes</li>
+                </ul>
+                <button onclick="window.location.href='{{ url_for('register') }}'">Join Now</button>
+            </div>
+
+            <div class="membership-card">
+                <h3>Family</h3>
+                <p>2500 per year</p>
+                <ul>
+                    <li>All Dual benefits</li>
+                    <li>Plus family events and workshops</li>
+                    <li>Special discounts on children's programs</li>
+                </ul>
+                <button onclick="window.location.href='{{ url_for('register') }}'">Join Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <div class="footer" id="contact-section">
+        <p>&copy; 2024 Met Museum. All rights reserved.</p>
+        <a href="mailto:info@metmuseum.com">Contact Us: info@metmuseum.com</a>
+        <p>Phone: +123 456 7890 | Location: 1000 Fifth Avenue, New York, NY 10028</p>
+    </div>
+
+</body>
+</html>

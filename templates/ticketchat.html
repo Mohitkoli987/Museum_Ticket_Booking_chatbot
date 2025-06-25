@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Ticket</title>
+  
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2d2727;
+            background-image: url('https://cdn.sanity.io/images/cctd4ker/production/1a8e1664f748d6543e6c711297cd08fce470bcf0-1920x1080.jpg?w=3840&q=75&fit=clip&auto=format');
+            background-size: cover;
+        }
+
+        /* Navigation Bar Styles */
+        .navigation {
+            background-color: #333;
+            display: flex;
+            justify-content: flex-end; /* Align items to the right */
+            align-items: center;
+            padding: 5px 30px; /* Increased padding to shift buttons to the right */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navigation a {
+            color: #f2f2f2;
+            text-align: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            font-size: 16px;
+            line-height: 1.2;
+            transition: background-color 0.3s, color 0.3s;
+            margin-left: 0; /* Adjusted margin for spacing on the right */
+        }
+
+        .navigation a:hover {
+            background-color: #575757;
+            color: white;
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+            right: 0; /* Align dropdown to the right of its parent link */
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #575757;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #575757;
+        }
+
+        .chatbot-container {
+    width: 350px; /* Adjusted width to be larger but not overly big */
+    min-height: 150px;
+    max-height: 500px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px 20px; /* Added padding to make room for sticky elements */
+    background-color: #f9f9f9;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: space-between; /* Ensures that header, chat, and link are spaced properly */
+}
+
+.chatbot-header {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    position: sticky;
+    top: 0;
+    background-color: #f9f9f9;
+    z-index: 10;
+}
+
+#chatbot-messages {
+    flex-grow: 1; /* Allows chat messages to take up available space */
+    max-height: 350px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+#chatbot-input {
+    width: calc(100% - 32px);
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px 16px;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+    font-size: 16px;
+}
+
+.book-ticket-link {
+    display: block;
+    text-align: center;
+    margin-top: 8px;
+    position: sticky;
+    bottom: 0;
+    background-color: #f9f9f9;
+    padding-top: 5px;
+}
+
+
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <div class="navigation">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('events') }}">Exhibitions</a>
+        <a href="{{ url_for('ticketchat') }}">Book Ticket</a>
+        <a href="#">About Us</a>
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Login</a>
+            <div class="dropdown-content">
+                <a href="{{ url_for('login') }}">Member Login</a>
+                <a href="{{ url_for('register') }}">Registration</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Container -->
+    <div class="chatbot-container">
+        <div class="chatbot-header">Chat with us!</div>
+        <div id="chatbot-messages"></div>
+        <div class="chatbot-input-container">
+            <input type="text" id="chatbot-input" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+        <a href="{{ url_for('book_ticket') }}">Book Ticket Manually</a>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const inputField = document.getElementById('chatbot-input');
+            const messageContainer = document.getElementById('chatbot-messages');
+            const userMessage = inputField.value;
+    
+            if (userMessage.trim() === '') {
+                return;
+            }
+    
+            // Append user's message
+            const userMessageElement = document.createElement('div');
+            userMessageElement.textContent = 'You: ' + userMessage;
+            userMessageElement.className = 'user-message';
+            messageContainer.appendChild(userMessageElement);
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+    
+            // Clear input field
+            inputField.value = '';
+    
+            // Send message to server
+            fetch('/chatbot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: userMessage })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const botMessageElement = document.createElement('div');
+                botMessageElement.textContent = 'Bot: ' + data.message;
+                botMessageElement.className = 'bot-message';
+                messageContainer.appendChild(botMessageElement);
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+            });
+        }
+    
+        // Add event listener for 'Enter' key press
+        document.getElementById('chatbot-input').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+                event.preventDefault(); // Prevents form submission or other default actions
+            }
+        });
+    </script>
+    
+
+</body>
+
+</html>

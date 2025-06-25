@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museum Website</title>
+    <style>
+        /* Basic CSS for layout */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .navigation {
+            background-color: #333;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 5px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.5s ease-out;
+        }
+        .navigation a {
+            color: #f2f2f2;
+            text-align: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            font-size: 16px;
+            line-height: 1.2;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .navigation a:hover {
+            background-color: #575757;
+            color: white;
+        }
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #575757;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #575757;
+        }
+
+        .header {
+            position: relative;
+            background-image: url("{{ url_for('static', filename='uploads/pixlr-image-generator-a0f06d46-610a-410b-922c-badbc58c2a2b.png') }}");
+            background-size: cover;
+            background-position: center;
+            height: 350px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            animation: fadeIn 1s ease-out;
+        }
+        .header h1 {
+            font-size: 3rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.5s;
+        }
+        .header p {
+            font-size: 1.2rem;
+            margin: 10px 0 20px;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1s;
+        }
+        .book-now {
+            position: center;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s, color 0.3s;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1.5s;
+        }
+        .book-now:hover {
+            background-color: #000;
+            color: #fff;
+        }
+        .gallery {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        .gallery img {
+            margin: 20px;
+            width: 300px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        .featured-image {
+            text-align: center;
+            margin: 20px 0;
+            animation: fadeIn 1s ease-out;
+        }
+        .featured-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            animation: slideUp 0.5s ease-out;
+        }
+        /* New Section for 'Visit the Museum' */
+        .visit-section {
+            background-color: #000;
+            color: #fff;
+            padding: 40px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            text-align: center;
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+        .visit-section h2 {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0;
+            color: #fff;
+        }
+        .visit-section .visit-item {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            margin: 20px;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+        }
+        .visit-section .visit-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        .visit-section .visit-item img:hover {
+            transform: scale(1.05);
+        }
+        .visit-section .visit-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .visit-section .visit-item p {
+            font-size: 1rem;
+        }
+        /* Member Section */
+        .member-section {
+            background-color: #f0eded;
+            color: #181616;
+            padding: 40px 20px;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+        .member-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .member-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        .member-section .join-now {
+            background-color: #fff;
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .member-section .join-now:hover {
+            background-color: #000;
+            color: #fff;
+        }
+        /* New Section for 'Connect with Us' */
+        .connect-section {
+            background-color: #000;
+            color: #fff;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            animation: fadeIn 1s ease-out;
+        }
+        .connect-section .info {
+            flex: 1;
+        }
+        .connect-section .info h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .connect-section .info p {
+            font-size: 1rem;
+            margin: 5px 0;
+        }
+        .connect-section .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .connect-section .buttons a {
+            background-color: #222;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .connect-section .buttons a:hover {
+            background-color: #444;
+        }
+
+
+        /* Sidebar CSS */
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            padding-top: 60px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #f2f2f2;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 1100;
+        }
+
+
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+        <!-- Sidebar Toggle -->
+        <div class="sidebar-toggle" onclick="toggleSidebar()">&#9776;</div>
+
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <a href="{{ url_for('check_ticket') }}">Check Your Ticket</a>
+            <a href="#">Location</a>
+            <a href="#">Contact Us</a>
+            <a href="{{ url_for('ticketchat') }}">Book Ticket</a>
+            <a href="{{ url_for('membership') }}">Memberships</a>
+        </div>
+    
+
+    <!-- Navigation Bar (Moved to the top and aligned to the right) -->
+    <div class="navigation">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('events') }}">Exhibitions</a>
+
+        <a href="{{ url_for('ticketchat') }}">Book Ticket</a>
+        <a href="#">About Us</a>
+        <div class="dropdown">
+            <a href="{{ url_for('login') }}" class="dropbtn">Member Login</a>
+            <!-- <div class="dropdown-content">
+                <a href="{{ url_for('login') }}">Member Login</a>
+                
+            </div> -->
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Experience the Wonders of the Museum</h1>
+        <p>Your Journey Through Art and History Starts Here</p>
+        <a href="{{ url_for('ticketchat') }}" class="book-now">BOOK NOW</a> <!-- Book Now Button -->
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="gallery">
+        <img src="{{ url_for('static', filename='uploads/@pamelaaalopez.jpeg') }}" alt="Exhibition 1">
+
+        <img src="https://www.urbansider.com/wp-content/uploads/Posts/Recommendations/Orsay-Jean-Baptiste-Carpeaux-c-RenataHaidle.jpg" alt="Exhibition 2">
+        <img src="https://i.pinimg.com/236x/f8/e2/5c/f8e25cda4353ef317c677cb2e75c15fe.jpg" alt="Exhibition 3">
+        <img src="https://cdn.getyourguide.com/img/tour/04cc7adb4e73ba0976890b2bcb5d62ad983b7cd84e881ddd72342cbd929e2f4c.jpeg/145.jpg" alt="Exhibition 4">
+    </div>
+
+    <!-- Featured Image Section -->
+    <div class="featured-image">
+        <img src="{{ url_for('static', filename='uploads/website-banner-1536x864.jpg') }}">
+    </div>
+
+    <!-- Visit the Museum Section (Moved to the Bottom) -->
+    <div class="visit-section">
+        <h2>Visit The Museum</h2>
+        <div class="visit-item">
+            <img src="https://www.britishmuseum.org/sites/default/files/styles/16_9_media_tiny/public/2021-11/room-33-china-south-asia-visitor-1920.jpg?h=d1cb525d&itok=ZedZVrPS" alt="Plan your visit">
+            <h3>Plan your visit</h3>
+            <p>Book book_ticket and plan your day including exhibitions, facilities, access, food, and travel.</p>
+        </div>
+        <div class="visit-item">
+            <img src="https://www.britishmuseum.org/sites/default/files/styles/16_9_media_tiny/public/2022-08/great-court-restaurant-blog.jpg?h=99b95e68&itok=03MqeoSY" alt="Museum map">
+            <h3>Museum map</h3>
+            <p>Navigate the museum with ease using our interactive maps, find your way around the galleries.</p>
+        </div>
+        <div class="visit-item">
+            <img src="https://www.britishmuseum.org/sites/default/files/styles/16_9_media_tiny/public/2019-11/R21%2024b%20Ancient%20Greece%20Rome%20Americas.jpg?h=f2b84de4&itok=q74Td-Yp" alt="Family visits">
+            <h3>Family visits</h3>
+            <p>From family facilities to activities and events, discover how to make the most of your day at the Museum.</p>
+        </div>
+    </div>
+
+    <!-- Member Section -->
+    <div class="member-section">
+        <h2>Become a Member</h2>
+        <p>Get exclusive access to exhibitions, events, and much more. Join our community today!</p>
+        <a href="{{ url_for('membership') }}" class="join-now">JOIN NOW</a>
+    </div>
+
+    <!-- Connect with Us Section -->
+    <div class="connect-section">
+        <div class="info">
+            <h2>Connect with Us</h2>
+            <p><strong>Address:</strong> 123 Museum Road, Art City, Maharashtra, India</p>
+            <p><strong>Opening Hours:</strong> Daily: 10.00–17.00 (Monday Closed), Last entry: 16.45</p>
+        </div>
+        <div class="buttons">
+            <a href="#">Resources</a>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        &copy; 2024 Museum of Art. All rights reserved.
+    </div>
+
+    <div class="container">
+        <!-- Other content -->
+
+        <button id="toggleChatbot" class="btn">Open Chat</button>
+        <div class="chatbot-container">
+            <div class="chatbot-header">
+                Chatbot
+            </div>
+            <div id="chatbot-body"></div>
+            <div class="chatbot-footer">
+                <input type="text" id="chatbot-input" placeholder="Type your message...">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            if (sidebar.style.transform === "translateX(0px)") {
+                sidebar.style.transform = "translateX(-100%)";
+            } else {
+                sidebar.style.transform = "translateX(0px)";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Ticket</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('https://cdn.sanity.io/images/cctd4ker/production/1a8e1664f748d6543e6c711297cd08fce470bcf0-1920x1080.jpg?w=3840&q=75&fit=clip&auto=format');
+            background-size: cover;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #e63946;
+            font-size: 28px;
+            border-bottom: 2px solid #e63946;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .ticket-info {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .ticket-info p {
+            margin: 12px 0;
+            font-size: 18px;
+            color: #f2f2f2;
+        }
+
+        .ticket-info p strong {
+            color: #e63946;
+            font-weight: 600;
+        }
+
+        .print-button {
+            display: inline-block;
+            width: 100%;
+            background-color: #e63946;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .print-button:hover {
+            background-color: #d62828;
+            transform: scale(1.02);
+        }
+
+        @media print {
+            body {
+                background-color: #fff;
+                color: #000;
+            }
+
+            .container {
+                background-color: #fff;
+                color: #000;
+                box-shadow: none;
+            }
+
+            .print-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Your Ticket</h1>
+        </div>
+        <div class="ticket-info">
+            <p><strong>Ticket ID:</strong> {{ ticket.id }}</p>
+            <!-- <p><strong>Visitor Name:</strong> {{ ticket.name }}</p>
+             <p><strong>Email:</strong> {{ ticket.email }}</p>
+             <p><strong>Phone:</strong> {{ ticket.phone }}</p> -->
+            <p><strong>Event:</strong> {{ ticket.title }}</p>
+            <p><strong>Visit Date:</strong> {{ ticket.visit_date }}</p>
+            <p><strong>Start Time:</strong> {{ ticket.start_time }}</p>
+            <p><strong>End Time:</strong> {{ ticket.end_time }}</p>
+            <p><strong>Number of Adults:</strong> {{ ticket.adults }}</p>
+            <p><strong>Number of Students:</strong> {{ ticket.students }}</p>
+            <p><strong>Number of Children:</strong> {{ ticket.children }}</p>
+            <p><strong>Total Amount Paid:</strong> Rs{{ ticket.total_amount }}</p>
+        </div>
+        <a href="#" class="print-button" onclick="window.print()">Print Ticket</a>
+    </div>
+</body>
+
+</html>

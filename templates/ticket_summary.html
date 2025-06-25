@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Summary</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            background-image: url('https://cdn.sanity.io/images/cctd4ker/production/1a8e1664f748d6543e6c711297cd08fce470bcf0-1920x1080.jpg?w=3840&q=75&fit=clip&auto=format');
+            background-size: cover;
+            color: #fff;
+        }
+
+        /* Navigation Bar Styles */
+        .navigation {
+            background-color: rgba(51, 51, 51, 0.9);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navigation a {
+            color: #f2f2f2;
+            text-align: center;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navigation a:hover {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        /* Booking Summary Container */
+        .ticket-summary {
+            width: 80%;
+            max-width: 800px;
+            margin: 120px auto 20px auto;
+            padding: 25px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+
+        .ticket-summary h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 600;
+            color: #f2f2f2;
+            border-bottom: 2px solid #f2f2f2;
+            padding-bottom: 10px;
+        }
+
+        .ticket-summary p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .ticket-summary p strong {
+            font-weight: 600;
+            color: #f2f2f2;
+        }
+
+        .ticket-summary button {
+            background-color: #e63946;
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .ticket-summary button:hover {
+            background-color: #d62828;
+            transform: scale(1.02);
+        }
+
+        .ticket-summary a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #e63946;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .ticket-summary a:hover {
+            color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <div class="navigation">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('events') }}">Exhibitions</a>
+        <a href="{{ url_for('book_ticket') }}">Book Ticket</a>
+        <a href="#">About Us</a>
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Login</a>
+            <div class="dropdown-content">
+                <a href="{{ url_for('login') }}">Member Login</a>
+                <a href="{{ url_for('register') }}">Registration</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ticket Summary Container -->
+    <div class="ticket-summary">
+        <h2>Ticket Summary</h2>
+
+        <!-- Display ticket details -->
+        <p><strong>Visitor Name:</strong> {{ ticket.name }}</p>
+        <p><strong>Email:</strong> {{ ticket.email }}</p>
+        <p><strong>Phone:</strong> {{ ticket.phone }}</p>
+        <p><strong>Event:</strong> {{ ticket.title }}</p>
+        <p><strong>Visit Date:</strong> {{ ticket.visit_date }}</p>
+        <p><strong>Start Time:</strong> {{ ticket.start_time }}</p>
+        <p><strong>End Time:</strong> {{ ticket.end_time }}</p>
+        <p><strong>Number of Adults:</strong> {{ ticket.adults }}</p>
+        <p><strong>Number of Students:</strong> {{ ticket.students }}</p>
+        <p><strong>Number of Children:</strong> {{ ticket.children }}</p>
+        <p><strong>Total Amount:</strong> Rs{{ ticket.total_amount }}</p>
+
+        <!-- Buttons to confirm or go back -->
+        <form method="POST" action="{{ url_for('ticket_summary') }}">
+            <button type="submit">Confirm and Proceed to Payment</button>
+        </form>
+        <a href="{{ url_for('book_ticket') }}">Go Back to Edit</a>
+    </div>
+</body>
+
+</html>

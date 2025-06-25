@@ -1,0 +1,318 @@
+/* Basic CSS for layout */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+.navigation {
+  background-color: #333;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 5px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: slideDown 0.5s ease-out;
+}
+.navigation a {
+  color: #f2f2f2;
+  text-align: center;
+  padding: 10px 16px;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 1.2;
+  transition: background-color 0.3s, color 0.3s;
+}
+.navigation a:hover {
+  background-color: #575757;
+  color: white;
+}
+/* Dropdown Styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+  background-color: #575757;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #575757;
+}
+
+.header {
+  position: relative;
+  background-image: url('C:/Users/Shruti Singh/OneDrive/Desktop/pixlr-image-generator-a0f06d46-610a-410b-922c-badbc58c2a2b.png');
+  background-size: cover;
+  background-position: center;
+  height: 350px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: fadeIn 1s ease-out;
+}
+.header h1 {
+  font-size: 3rem;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  animation: fadeInUp 1s forwards 0.5s;
+}
+.header p {
+  font-size: 1.2rem;
+  margin: 10px 0 20px;
+  opacity: 0;
+  animation: fadeInUp 1s forwards 1s;
+}
+.book-now {
+  position: center;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  color: #000;
+  padding: 15px 25px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, color 0.3s;
+  opacity: 0;
+  animation: fadeInUp 1s forwards 1.5s;
+}
+.book-now:hover {
+  background-color: #000;
+  color: #fff;
+}
+.gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+.gallery img {
+  margin: 20px;
+  width: 300px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: fadeInUp 1s forwards;
+  transition: transform 0.3s;
+}
+.gallery img:hover {
+  transform: scale(1.05);
+}
+.featured-image {
+  text-align: center;
+  margin: 20px 0;
+  animation: fadeIn 1s ease-out;
+}
+.featured-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
+}
+.footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  animation: slideUp 0.5s ease-out;
+}
+/* New Section for 'Visit the Museum' */
+.visit-section {
+  background-color: #000;
+  color: #fff;
+  padding: 40px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  text-align: center;
+  position: relative;
+  animation: fadeIn 1s ease-out;
+}
+.visit-section h2 {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  color: #fff;
+}
+.visit-section .visit-item {
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  margin: 20px;
+  background-color: #222;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  animation: fadeInUp 1s forwards;
+}
+.visit-section .visit-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  transition: transform 0.3s;
+}
+.visit-section .visit-item img:hover {
+  transform: scale(1.05);
+}
+.visit-section .visit-item h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+.visit-section .visit-item p {
+  font-size: 1rem;
+}
+/* Member Section */
+.member-section {
+  background-color: #f0eded;
+  color: #181616;
+  padding: 40px 20px;
+  text-align: center;
+  animation: fadeIn 1s ease-out;
+}
+.member-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+.member-section p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+.member-section .join-now {
+  background-color: #fff;
+  color: #000;
+  padding: 15px 25px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, color 0.3s;
+}
+.member-section .join-now:hover {
+  background-color: #000;
+  color: #fff;
+}
+/* New Section for 'Connect with Us' */
+.connect-section {
+  background-color: #000;
+  color: #fff;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  animation: fadeIn 1s ease-out;
+}
+.connect-section .info {
+  flex: 1;
+}
+.connect-section .info h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+.connect-section .info p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+.connect-section .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.connect-section .buttons a {
+  background-color: #222;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, color 0.3s;
+}
+.connect-section .buttons a:hover {
+  background-color: #444;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+@keyframes slideDown {
+  from {
+      transform: translateY(-50px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+@keyframes slideUp {
+  from {
+      transform: translateY(50px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
